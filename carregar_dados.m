@@ -38,7 +38,14 @@ U     = U(valido);
 dv0 = datevec(datas(1));
 dv  = datevec(datas);
 t   = (dv(:,1) - dv0(1)) * 12 + (dv(:,2) - dv0(2)) + 1;
-nome_estacao = '';
+
+% Extrai nome da estacao da celula A1 (ou usa nome do arquivo)
+try
+    meta = readcell(arquivo, 'Range', 'A1:A1');
+    nome_estacao = strtrim(strrep(char(meta{1}), 'Nome:', ''));
+catch
+    [~, nome_estacao] = fileparts(arquivo);
+end
 end
 
 function idx = buscar_coluna(nomes, palavras)
