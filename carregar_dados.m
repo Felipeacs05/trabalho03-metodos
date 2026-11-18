@@ -25,7 +25,9 @@ idx_T    = buscar_coluna(cols, {'TEMPERATURA', 'MEDIA', 'COMPENSADA'});
 idx_U    = buscar_coluna(cols, {'UMIDADE', 'RELATIVA'});
 
 datas = datenum(tabela.(idx_data));
-t = []; T = []; U = []; nome_estacao = '';
+T     = para_double(tabela.(idx_T));
+U     = para_double(tabela.(idx_U));
+t = []; nome_estacao = '';
 end
 
 function idx = buscar_coluna(nomes, palavras)
@@ -37,4 +39,20 @@ function idx = buscar_coluna(nomes, palavras)
         end
     end
     error('Coluna (%s) nao encontrada na planilha.', strjoin(palavras, ' '));
+end
+
+function v = para_double(col)
+    if isnumeric(col)
+        v = double(col(:));
+        return;
+    end
+    v = NaN(length(col), 1);
+    for i = 1:length(col)
+        item = col{i};
+        if isnumeric(item) && ~isempty(item)
+            v(i) = double(item);
+        elseif (ischar(item) || isstring(item)) && ~strcmpi(strtrim(char(item)), 'null')
+            v(i) = str2double(char(item));
+        end
+    end
 end
