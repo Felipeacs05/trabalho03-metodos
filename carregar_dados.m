@@ -33,7 +33,11 @@ valido = ~isnan(datas);
 datas = datas(valido);
 T     = T(valido);
 U     = U(valido);
-t = (1:length(datas))';
+
+% Tempo sequencial t = 1, 2, ..., N (em meses, alinhado com P = 12)
+dv0 = datevec(datas(1));
+dv  = datevec(datas);
+t   = (dv(:,1) - dv0(1)) * 12 + (dv(:,2) - dv0(2)) + 1;
 nome_estacao = '';
 end
 
