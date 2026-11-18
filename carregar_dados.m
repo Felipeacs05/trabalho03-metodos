@@ -27,7 +27,14 @@ idx_U    = buscar_coluna(cols, {'UMIDADE', 'RELATIVA'});
 datas = datenum(tabela.(idx_data));
 T     = para_double(tabela.(idx_T));
 U     = para_double(tabela.(idx_U));
-t = []; nome_estacao = '';
+
+% Remove eventuais linhas vazias no fim da planilha
+valido = ~isnan(datas);
+datas = datas(valido);
+T     = T(valido);
+U     = U(valido);
+t = (1:length(datas))';
+nome_estacao = '';
 end
 
 function idx = buscar_coluna(nomes, palavras)
