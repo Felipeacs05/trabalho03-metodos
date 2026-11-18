@@ -14,3 +14,8 @@ valid_T  = ~isnan(T);
 valid_U  = ~isnan(U);
 valid_TU = valid_T & valid_U;
 N = length(t);
+
+fprintf('=== GRUPO 03 - %s (%s a %s) ===\n', ...
+    cidade, datestr(datas(1), 'yyyy-mm'), datestr(datas(end), 'yyyy-mm'));
+fprintf('Meses: %d | T validos: %d | U validos: %d | Pares T&U: %d\n\n', ...
+    N, sum(valid_T), sum(valid_U), sum(valid_TU));
