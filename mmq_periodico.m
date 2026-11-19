@@ -16,5 +16,13 @@ if length(t) ~= length(y)
     error('Os vetores t e y devem ter o mesmo comprimento.');
 end
 
+% Filtra observacoes validas (evita propagacao de NaN nas somatorias do MMQ)
+valid = ~isnan(t) & ~isnan(y);
+n_val = sum(valid);
+
+if n_val < 3
+    error('Sao necessarios pelo menos 3 pontos validos para ajustar o modelo periodico.');
+end
+
 coef = zeros(3, 1); y_ajust = zeros(size(y)); residuos = zeros(size(y)); R2 = 0;
 end
