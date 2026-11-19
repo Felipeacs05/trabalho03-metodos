@@ -24,5 +24,21 @@ if n_val < 3
     error('Sao necessarios pelo menos 3 pontos validos para ajustar o modelo periodico.');
 end
 
+t_val = t(valid);
+y_val = y(valid);
+
+w = 2 * pi / P;
+c_val = cos(w * t_val);
+s_val = sin(w * t_val);
+
+% Montagem do sistema linear normal 3x3 (A * coef = B)
+A = [ n_val,       sum(c_val),      sum(s_val);
+      sum(c_val),  sum(c_val.^2),   sum(c_val .* s_val);
+      sum(s_val),  sum(c_val .* s_val), sum(s_val.^2) ];
+
+B = [ sum(y_val);
+      sum(y_val .* c_val);
+      sum(y_val .* s_val) ];
+
 coef = zeros(3, 1); y_ajust = zeros(size(y)); residuos = zeros(size(y)); R2 = 0;
 end
