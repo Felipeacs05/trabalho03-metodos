@@ -46,5 +46,15 @@ coef = A \ B;
 % Avaliacao da curva continua sobre todo o eixo t
 y_ajust = coef(1) + coef(2) * cos(w * t) + coef(3) * sin(w * t);
 residuos = y - y_ajust;
-R2 = 0;
+
+% Metricas de ajuste calculadas apenas nos pontos observados
+res_val = y_val - y_ajust(valid);
+St = sum((y_val - mean(y_val)).^2);
+Sr = sum(res_val.^2);
+
+if St == 0
+    R2 = 0;
+else
+    R2 = (St - Sr) / St;
+end
 end
