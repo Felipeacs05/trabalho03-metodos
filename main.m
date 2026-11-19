@@ -49,8 +49,12 @@ diff_fase = abs(mod(fase_T - fase_U + 180, 360) - 180);
 err_T = mean(abs(res_T(valid_T)) ./ abs(T(valid_T))) * 100;
 err_U = mean(abs(res_U(valid_U)) ./ abs(U(valid_U))) * 100;
 
+tv = t(valid_T); rv = res_T(valid_T);
+tend_T_decada = (sum((tv - mean(tv)) .* (rv - mean(rv))) / sum((tv - mean(tv)).^2)) * 120;
+
 fprintf('=== RESULTADOS MMQ PERIODICO (FELIPE) ===\n');
 fprintf('T(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f C | R2=%.4f\n', coef_T(1), coef_T(2), coef_T(3), amp_T, R2_T);
 fprintf('U(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f %% | R2=%.4f\n', coef_U(1), coef_U(2), coef_U(3), amp_U, R2_U);
 fprintf('Diferenca de fase T x U: %.1f graus\n', diff_fase);
 fprintf('Erro Relativo Medio -> T: %.2f%% | U: %.2f%%\n', err_T, err_U);
+fprintf('Tendencia T: %+.3f C/decada\n\n', tend_T_decada);
