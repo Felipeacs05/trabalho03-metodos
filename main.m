@@ -39,4 +39,9 @@ P = 12; % Ciclo anual (12 meses)
 [coef_T, T_ajust, res_T, R2_T, Syx_T] = mmq_periodico(t, T, P);
 [coef_U, U_ajust, res_U, R2_U, Syx_U] = mmq_periodico(t, U, P);
 
-fprintf('T(t) R2=%.4f | U(t) R2=%.4f\n', R2_T, R2_U);
+amp_T     = hypot(coef_T(2), coef_T(3));
+amp_U     = hypot(coef_U(2), coef_U(3));
+
+fprintf('=== RESULTADOS MMQ PERIODICO (FELIPE) ===\n');
+fprintf('T(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f C | R2=%.4f\n', coef_T(1), coef_T(2), coef_T(3), amp_T, R2_T);
+fprintf('U(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f %% | R2=%.4f\n', coef_U(1), coef_U(2), coef_U(3), amp_U, R2_U);
