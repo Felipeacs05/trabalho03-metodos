@@ -1,6 +1,18 @@
-function [coef, y_ajust, residuos, R2] = mmq_periodico(t, y, P)
+function [coef, y_ajust, residuos, R2, Syx] = mmq_periodico(t, y, P)
 % MMQ_PERIODICO Ajusta modelo periodico linearizado via Minimos Quadrados.
 % Modelo: y(t) = a0 + a1*cos(w*t) + b1*sin(w*t), onde w = 2*pi/P.
+%
+% Entradas:
+%   t -> vetor de tempo (meses sequenciais 1, 2, ..., N)
+%   y -> vetor da variavel climatica (T ou U); valores NaN sao ignorados no ajuste
+%   P -> periodo fundamental do ciclo (ex.: 12 para ciclo anual em meses)
+%
+% Saidas:
+%   coef    -> [a0; a1; b1]
+%   y_ajust -> curva periodica ajustada avaliada em todo o vetor t
+%   residuos-> y - y_ajust (mantem NaN onde y era NaN)
+%   R2      -> coeficiente de determinacao sobre os pontos validos
+%   Syx     -> erro padrao da estimativa: sqrt(Sr / (n_validos - 3))
 
 if nargin < 3
     error('mmq_periodico requer 3 argumentos: (t, y, P).');
@@ -56,5 +68,11 @@ if St == 0
     R2 = 0;
 else
     R2 = (St - Sr) / St;
+end
+
+if n_val > 3
+    Syx = sqrt(Sr / (n_val - 3));
+else
+    Syx = NaN;
 end
 end
