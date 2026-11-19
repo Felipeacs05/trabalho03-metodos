@@ -33,3 +33,10 @@ else
     fprintf('  Resumo rapido -> T_media = %.2f C | U_media = %.2f %%\n\n', ...
         mean(T(valid_T)), mean(U(valid_U)));
 end
+
+%% 4. MODELAGEM DE CICLOS - MMQ PERIODICO (FELIPE -> mmq_periodico.m)
+P = 12; % Ciclo anual (12 meses)
+[coef_T, T_ajust, res_T, R2_T, Syx_T] = mmq_periodico(t, T, P);
+[coef_U, U_ajust, res_U, R2_U, Syx_U] = mmq_periodico(t, U, P);
+
+fprintf('T(t) R2=%.4f | U(t) R2=%.4f\n', R2_T, R2_U);
