@@ -40,5 +40,11 @@ B = [ sum(y_val);
       sum(y_val .* c_val);
       sum(y_val .* s_val) ];
 
-coef = zeros(3, 1); y_ajust = zeros(size(y)); residuos = zeros(size(y)); R2 = 0;
+% Resolucao do sistema (coef = [a0; a1; b1])
+coef = A \ B;
+
+% Avaliacao da curva continua sobre todo o eixo t
+y_ajust = coef(1) + coef(2) * cos(w * t) + coef(3) * sin(w * t);
+residuos = zeros(size(y));
+R2 = 0;
 end
