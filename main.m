@@ -26,4 +26,10 @@ tabela_prep = table(t, cellstr(datestr(datas, 'yyyy-mm-dd')), T, U, ...
 writetable(tabela_prep, 'dados_preprocessados.csv');
 
 %% 2. ESTATISTICA DESCRITIVA (IKHLAS -> estatistica_descritiva.m)
-% [stats_T, stats_U] = estatistica_descritiva(t, T, U);
+if exist('estatistica_descritiva', 'file') == 2
+    [stats_T, stats_U] = estatistica_descritiva(t, T, U);
+else
+    fprintf('[Aguardando Ikhlas] estatistica_descritiva.m ainda nao esta na pasta.\n');
+    fprintf('  Resumo rapido -> T_media = %.2f C | U_media = %.2f %%\n\n', ...
+        mean(T(valid_T)), mean(U(valid_U)));
+end
