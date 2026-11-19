@@ -24,3 +24,6 @@ fprintf('Meses: %d | T validos: %d | U validos: %d | Pares T&U: %d\n\n', ...
 tabela_prep = table(t, cellstr(datestr(datas, 'yyyy-mm-dd')), T, U, ...
     'VariableNames', {'Tempo_t', 'Data_Medicao', 'Temperatura_C', 'Umidade_Pct'});
 writetable(tabela_prep, 'dados_preprocessados.csv');
+
+%% 2. ESTATISTICA DESCRITIVA (IKHLAS -> estatistica_descritiva.m)
+% [stats_T, stats_U] = estatistica_descritiva(t, T, U);
