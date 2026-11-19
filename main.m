@@ -34,6 +34,19 @@ else
         mean(T(valid_T)), mean(U(valid_U)));
 end
 
+%% 3. RECONSTRUCAO / INTERPOLACAO (LUCAS -> interp_newton.m, interp_lagrange.m)
+T_reconst = T;
+U_reconst = U;
+
+if exist('interp_newton', 'file') == 2 && exist('interp_lagrange', 'file') == 2
+    % Preenche falhas isoladas de 1 mes usando janela local de 4 vizinhos (grau 3)
+    falhas_T = find(isnan(T(2:end-1)) & ~isnan(T(1:end-2)) & ~isnan(T(3:end))) + 1;
+    falhas_U = find(isnan(U(2:end-1)) & ~isnan(U(1:end-2)) & ~isnan(U(3:end))) + 1;
+    fprintf('[Lucas] Falhas isoladas encontradas -> T: %d | U: %d\n', length(falhas_T), length(falhas_U));
+else
+    fprintf('[Aguardando Lucas] interp_newton.m / interp_lagrange.m ainda nao estao na pasta.\n\n');
+end
+
 %% 4. MODELAGEM DE CICLOS - MMQ PERIODICO (FELIPE -> mmq_periodico.m)
 P = 12; % Ciclo anual (12 meses)
 [coef_T, T_ajust, res_T, R2_T, Syx_T] = mmq_periodico(t, T, P);
