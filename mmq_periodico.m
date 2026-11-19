@@ -45,6 +45,6 @@ coef = A \ B;
 
 % Avaliacao da curva continua sobre todo o eixo t
 y_ajust = coef(1) + coef(2) * cos(w * t) + coef(3) * sin(w * t);
-residuos = zeros(size(y));
+residuos = y - y_ajust;
 R2 = 0;
 end
