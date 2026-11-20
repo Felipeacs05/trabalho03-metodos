@@ -74,8 +74,8 @@ end
 
 %% 4. MODELAGEM DE CICLOS - MMQ PERIODICO (FELIPE -> mmq_periodico.m)
 P = 12; % Ciclo anual (12 meses)
-[coef_T, T_ajust, res_T, R2_T, Syx_T] = mmq_periodico(t, T, P);
-[coef_U, U_ajust, res_U, R2_U, Syx_U] = mmq_periodico(t, U, P);
+[coef_T, T_ajust, res_T, R2_T, Syx_T] = mmq_periodico(t, T_reconst, P);
+[coef_U, U_ajust, res_U, R2_U, Syx_U] = mmq_periodico(t, U_reconst, P);
 
 amp_T     = hypot(coef_T(2), coef_T(3));
 amp_U     = hypot(coef_U(2), coef_U(3));
