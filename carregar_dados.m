@@ -6,6 +6,7 @@ if exist(arquivo, 'file') ~= 2
     error('Arquivo "%s" nao encontrado na pasta atual.', arquivo);
 end
 
+% Configura importacao pulando as 10 linhas iniciais de cabecalho do INMET
 opts = detectImportOptions(arquivo, 'NumHeaderLines', 10);
 try
     opts.VariableNamingRule = 'preserve';
@@ -20,6 +21,7 @@ end
 tabela = readtable(arquivo, opts);
 cols = tabela.Properties.VariableNames;
 
+% Localiza colunas dinamicamente (funciona mesmo se a ordem das colunas mudar)
 idx_data = buscar_coluna(cols, {'Data', 'Medicao'});
 idx_T    = buscar_coluna(cols, {'TEMPERATURA', 'MEDIA', 'COMPENSADA'});
 idx_U    = buscar_coluna(cols, {'UMIDADE', 'RELATIVA'});
@@ -70,7 +72,7 @@ function v = para_double(col)
         if isnumeric(item) && ~isempty(item)
             v(i) = double(item);
         elseif (ischar(item) || isstring(item)) && ~strcmpi(strtrim(char(item)), 'null')
-            v(i) = str2double(char(item));
+            v(i) = str2double(strrep(char(item), ',', '.'));
         end
     end
 end
