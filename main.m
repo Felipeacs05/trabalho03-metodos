@@ -117,3 +117,17 @@ title(sprintf('Ciclo Sazonal da Umidade Relativa - %s (R^2 = %.4f)', cidade, R2_
 xlabel('Tempo (meses)'); ylabel('Umidade (%)');
 legend('Medido', 'MMQ Periodico', 'Location', 'best'); grid on;
 print(fig1, 'fig_sazonal_TU.png', '-dpng', '-r300');
+
+
+% --- GRAFICO 2: Sobreposicao T(t) e U(t) (Oposicao de Fase - 3 anos) ---
+z_ini = max(1, j_fim - 35);
+z = z_ini:j_fim;
+
+fig2 = figure('Position', [130, 130, 920, 420]);
+yyaxis left;
+plot(t(z), T_ajust(z), 'r-', 'LineWidth', 2);
+ylabel('Temperatura (°C)');
+yyaxis right;
+plot(t(z), U_ajust(z), 'b--', 'LineWidth', 2);
+ylabel('Umidade Relativa (%)');
+grid on;
