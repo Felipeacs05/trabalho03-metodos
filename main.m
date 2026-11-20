@@ -142,6 +142,8 @@ print(fig2, 'fig_oposicao_fase.png', '-dpng', '-r300');
 % --- GRAFICO 3: Residuos e Anomalias (toda a serie) ---
 fig3 = figure('Position', [160, 160, 920, 450]);
 subplot(2,1,1);
-stem(t(valid_T), res_T(valid_T), 'r', 'MarkerSize', 3);
-title('Residuos de Temperatura');
+stem(t(valid_T), res_T(valid_T), 'r', 'MarkerSize', 3); hold on;
+plot([1 N], [ 2*Syx_T  2*Syx_T], 'k--');
+plot([1 N], [-2*Syx_T -2*Syx_T], 'k--');
+title('Residuos de Temperatura (Anomalias Interanuais \pm 2 S_{y/x})');
 ylabel('Residuo T (°C)'); grid on;
