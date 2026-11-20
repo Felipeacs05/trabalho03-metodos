@@ -125,9 +125,15 @@ z = z_ini:j_fim;
 
 fig2 = figure('Position', [130, 130, 920, 420]);
 yyaxis left;
-plot(t(z), T_ajust(z), 'r-', 'LineWidth', 2);
+plot(t(z), T_ajust(z), 'r-', 'LineWidth', 2); hold on;
+plot(t(z), T(z), 'ro', 'MarkerSize', 4);
 ylabel('Temperatura (°C)');
 yyaxis right;
-plot(t(z), U_ajust(z), 'b--', 'LineWidth', 2);
+plot(t(z), U_ajust(z), 'b--', 'LineWidth', 2); hold on;
+plot(t(z), U(z), 'bs', 'MarkerSize', 4);
 ylabel('Umidade Relativa (%)');
-grid on;
+title(sprintf('Oposicao de Fase T(t) vs U(t) (%s a %s)', ...
+    datestr(datas(z_ini), 'yyyy-mm'), datestr(datas(j_fim), 'yyyy-mm')));
+xlabel('Tempo (meses)');
+legend('T ajustado', 'T medido', 'U ajustado', 'U medido', 'Location', 'best'); grid on;
+print(fig2, 'fig_oposicao_fase.png', '-dpng', '-r300');
