@@ -165,6 +165,10 @@ U_par = U_reconst(pares_ok);
 if exist('mmq_linear', 'file') == 2 && exist('mmq_polinomial', 'file') == 2
     [coef_lin,  U_lin,  res_lin,  R2_lin]  = mmq_linear(T_par, U_par);
     [coef_quad, U_quad, res_quad, R2_quad] = mmq_polinomial(T_par, U_par, 2);
+    
+    fprintf('=== CORRELACAO T x U (VITOR) ===\n');
+    fprintf('Linear    : R2 = %.4f | Syx = %.2f %%\n', R2_lin,  sqrt(sum(res_lin.^2)/(length(T_par)-2)));
+    fprintf('Quadratico: R2 = %.4f | Syx = %.2f %%\n\n', R2_quad, sqrt(sum(res_quad.^2)/(length(T_par)-3)));
 else
     fprintf('[Aguardando Vitor] mmq_linear.m / mmq_polinomial.m ainda nao estao na pasta.\n');
 end
