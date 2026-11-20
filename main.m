@@ -137,3 +137,11 @@ title(sprintf('Oposicao de Fase T(t) vs U(t) (%s a %s)', ...
 xlabel('Tempo (meses)');
 legend('T ajustado', 'T medido', 'U ajustado', 'U medido', 'Location', 'best'); grid on;
 print(fig2, 'fig_oposicao_fase.png', '-dpng', '-r300');
+
+
+% --- GRAFICO 3: Residuos e Anomalias (toda a serie) ---
+fig3 = figure('Position', [160, 160, 920, 450]);
+subplot(2,1,1);
+stem(t(valid_T), res_T(valid_T), 'r', 'MarkerSize', 3);
+title('Residuos de Temperatura');
+ylabel('Residuo T (°C)'); grid on;
