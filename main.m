@@ -169,6 +169,17 @@ if exist('mmq_linear', 'file') == 2 && exist('mmq_polinomial', 'file') == 2
     fprintf('=== CORRELACAO T x U (VITOR) ===\n');
     fprintf('Linear    : R2 = %.4f | Syx = %.2f %%\n', R2_lin,  sqrt(sum(res_lin.^2)/(length(T_par)-2)));
     fprintf('Quadratico: R2 = %.4f | Syx = %.2f %%\n\n', R2_quad, sqrt(sum(res_quad.^2)/(length(T_par)-3)));
+    
+    [T_ord, ord] = sort(T_par);
+    fig4 = figure('Position', [190, 190, 820, 480]);
+    scatter(T_par, U_par, 18, [0.4 0.5 0.65], 'filled'); hold on;
+    plot(T_ord, U_lin(ord),  'r-',  'LineWidth', 2);
+    plot(T_ord, U_quad(ord), 'k--', 'LineWidth', 2);
+    title(sprintf('Termodinamica Atmosferica U(T) - %s', cidade));
+    xlabel('Temperatura (°C)'); ylabel('Umidade Relativa (%)');
+    legend('Dados Medidos', sprintf('Linear (R^2=%.4f)', R2_lin), ...
+        sprintf('Quadratico (R^2=%.4f)', R2_quad), 'Location', 'best'); grid on;
+    print(fig4, 'fig_correlacao_TU.png', '-dpng', '-r300');
 else
     fprintf('[Aguardando Vitor] mmq_linear.m / mmq_polinomial.m ainda nao estao na pasta.\n');
 end
