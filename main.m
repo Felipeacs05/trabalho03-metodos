@@ -109,3 +109,11 @@ plot(t(jan), T(jan), 'o', 'Color', [0.5 0.5 0.5], 'MarkerSize', 4); hold on;
 plot(t(jan), T_ajust(jan), 'r-', 'LineWidth', 2);
 title(sprintf('Ciclo Sazonal da Temperatura - %s (R^2 = %.4f)', cidade, R2_T));
 ylabel('Temperatura (°C)'); legend('Medido', 'MMQ Periodico', 'Location', 'best'); grid on;
+
+subplot(2,1,2);
+plot(t(jan), U(jan), 'o', 'Color', [0.5 0.5 0.5], 'MarkerSize', 4); hold on;
+plot(t(jan), U_ajust(jan), 'b-', 'LineWidth', 2);
+title(sprintf('Ciclo Sazonal da Umidade Relativa - %s (R^2 = %.4f)', cidade, R2_U));
+xlabel('Tempo (meses)'); ylabel('Umidade (%)');
+legend('Medido', 'MMQ Periodico', 'Location', 'best'); grid on;
+print(fig1, 'fig_sazonal_TU.png', '-dpng', '-r300');
