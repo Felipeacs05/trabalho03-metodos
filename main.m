@@ -147,3 +147,11 @@ plot([1 N], [ 2*Syx_T  2*Syx_T], 'k--');
 plot([1 N], [-2*Syx_T -2*Syx_T], 'k--');
 title('Residuos de Temperatura (Anomalias Interanuais \pm 2 S_{y/x})');
 ylabel('Residuo T (°C)'); grid on;
+
+subplot(2,1,2);
+stem(t(valid_U), res_U(valid_U), 'b', 'MarkerSize', 3); hold on;
+plot([1 N], [ 2*Syx_U  2*Syx_U], 'k--');
+plot([1 N], [-2*Syx_U -2*Syx_U], 'k--');
+title('Residuos de Umidade Relativa (\pm 2 S_{y/x})');
+xlabel('Tempo (meses)'); ylabel('Residuo U (%)'); grid on;
+print(fig3, 'fig_residuos.png', '-dpng', '-r300');
