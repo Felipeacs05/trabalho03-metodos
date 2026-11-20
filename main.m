@@ -42,7 +42,20 @@ if exist('interp_newton', 'file') == 2 && exist('interp_lagrange', 'file') == 2
     % Preenche falhas isoladas de 1 mes usando janela local de 4 vizinhos (grau 3)
     falhas_T = find(isnan(T(2:end-1)) & ~isnan(T(1:end-2)) & ~isnan(T(3:end))) + 1;
     falhas_U = find(isnan(U(2:end-1)) & ~isnan(U(1:end-2)) & ~isnan(U(3:end))) + 1;
-    fprintf('[Lucas] Falhas isoladas encontradas -> T: %d | U: %d\n', length(falhas_T), length(falhas_U));
+    
+    validos_T = find(valid_T);
+    for idx = falhas_T'
+        [~, ord] = sort(abs(validos_T - idx));
+        viz = sort(validos_T(ord(1:4)));
+        T_reconst(idx) = interp_newton(t(viz), T(viz), t(idx));
+    end
+    
+    validos_U = find(valid_U);
+    for idx = falhas_U'
+        [~, ord] = sort(abs(validos_U - idx));
+        viz = sort(validos_U(ord(1:4)));
+        U_reconst(idx) = interp_newton(t(viz), U(viz), t(idx));
+    end
 else
     fprintf('[Aguardando Lucas] interp_newton.m / interp_lagrange.m ainda nao estao na pasta.\n\n');
 end
