@@ -155,3 +155,9 @@ plot([1 N], [-2*Syx_U -2*Syx_U], 'k--');
 title('Residuos de Umidade Relativa (\pm 2 S_{y/x})');
 xlabel('Tempo (meses)'); ylabel('Residuo U (%)'); grid on;
 print(fig3, 'fig_residuos.png', '-dpng', '-r300');
+
+
+%% 5. CORRELACAO DIRETA T x U (VITOR -> mmq_linear.m, mmq_polinomial.m)
+pares_ok = ~isnan(T_reconst) & ~isnan(U_reconst);
+T_par = T_reconst(pares_ok);
+U_par = U_reconst(pares_ok);
