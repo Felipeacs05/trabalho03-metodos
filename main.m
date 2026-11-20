@@ -96,3 +96,16 @@ fprintf('U(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f %% | R2=%.4f\n',
 fprintf('Diferenca de fase T x U: %.1f graus\n', diff_fase);
 fprintf('Erro Relativo Medio -> T: %.2f%% | U: %.2f%%\n', err_T, err_U);
 fprintf('Tendencia T: %+.3f C/decada\n\n', tend_T_decada);
+
+
+% --- GRAFICO 1: Sazonalidade T(t) e U(t) (trecho continuo de 6 anos para visualizacao nitida) ---
+[~, j_fim] = max(movsum(valid_TU, 72));
+j_ini = max(1, j_fim - 71);
+jan = j_ini:j_fim;
+
+fig1 = figure('Position', [100, 100, 920, 520]);
+subplot(2,1,1);
+plot(t(jan), T(jan), 'o', 'Color', [0.5 0.5 0.5], 'MarkerSize', 4); hold on;
+plot(t(jan), T_ajust(jan), 'r-', 'LineWidth', 2);
+title(sprintf('Ciclo Sazonal da Temperatura - %s (R^2 = %.4f)', cidade, R2_T));
+ylabel('Temperatura (°C)'); legend('Medido', 'MMQ Periodico', 'Location', 'best'); grid on;
