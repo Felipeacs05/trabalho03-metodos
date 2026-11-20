@@ -98,7 +98,6 @@ fprintf('U(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f %% | R2=%.4f | S
 fprintf('Diferenca de fase T x U: %.1f graus | Tendencia T: %+.3f C/decada\n\n', ...
     diff_fase, tend_T_decada);
 
-
 % --- GRAFICO 1: Sazonalidade T(t) e U(t) (trecho continuo de 6 anos para visualizacao nitida) ---
 [~, j_fim] = max(movsum(valid_TU, [71 0]));
 j_ini = max(1, j_fim - 71);
@@ -119,7 +118,6 @@ xlabel('Tempo (meses)'); ylabel('Umidade (%)');
 legend('Medido', 'MMQ Periodico', 'Location', 'best'); grid on;
 print(fig1, 'fig_sazonal_TU.png', '-dpng', '-r300');
 
-
 % --- GRAFICO 2: Sobreposicao T(t) e U(t) (Oposicao de Fase - 3 anos) ---
 z_ini = max(1, j_fim - 35);
 z = z_ini:j_fim;
@@ -139,7 +137,6 @@ xlabel('Tempo (meses)');
 legend('T ajustado', 'T medido', 'U ajustado', 'U medido', 'Location', 'best'); grid on;
 print(fig2, 'fig_oposicao_fase.png', '-dpng', '-r300');
 
-
 % --- GRAFICO 3: Residuos e Anomalias (toda a serie) ---
 fig3 = figure('Position', [160, 160, 920, 450]);
 subplot(2,1,1);
@@ -156,7 +153,6 @@ plot([1 N], [-2*Syx_U -2*Syx_U], 'k--');
 title('Residuos de Umidade Relativa (\pm 2 S_{y/x})');
 xlabel('Tempo (meses)'); ylabel('Residuo U (%)'); grid on;
 print(fig3, 'fig_residuos.png', '-dpng', '-r300');
-
 
 %% 5. CORRELACAO DIRETA T x U (VITOR -> mmq_linear.m, mmq_polinomial.m)
 pares_ok = ~isnan(T_reconst) & ~isnan(U_reconst);

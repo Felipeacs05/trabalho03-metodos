@@ -18,3 +18,5 @@
 1. Abra a pasta `Grupo3_TrabalhoNumerico` no MATLAB.
 2. Execute `main` na janela de comandos.
 3. Os gráficos em alta resolução (300 DPI) e o arquivo `dados_preprocessados.csv` serão gerados automaticamente.
+
+> Repositório configurado para receber os módulos de Ikhlas, Lucas Guerra e Vitor Costa sem alterar o `main.m`.
