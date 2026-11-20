@@ -100,7 +100,7 @@ fprintf('Diferenca de fase T x U: %.1f graus | Tendencia T: %+.3f C/decada\n\n',
 
 
 % --- GRAFICO 1: Sazonalidade T(t) e U(t) (trecho continuo de 6 anos para visualizacao nitida) ---
-[~, j_fim] = max(movsum(valid_TU, 72));
+[~, j_fim] = max(movsum(valid_TU, [71 0]));
 j_ini = max(1, j_fim - 71);
 jan = j_ini:j_fim;
 
