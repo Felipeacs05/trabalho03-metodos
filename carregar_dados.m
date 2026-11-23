@@ -120,6 +120,11 @@ function v = para_datenum(col)
 
         if isnumeric(item) && ~isempty(item)
             v(i) = double(item);
+
+            % xlsread no Octave devolve datas como serial do Excel.
+            if v(i) < 300000
+                v(i) = v(i) + datenum(1899, 12, 30);
+            end
         elseif ischar(item) || isstring(item)
             texto = strtrim(char(item));
 
