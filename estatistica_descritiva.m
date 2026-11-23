@@ -1,7 +1,4 @@
 function [stats_T, stats_U] = estatistica_descritiva(t, T, U)
-% ESTATISTICA_DESCRITIVA Calcula estatisticas de temperatura e umidade.
-% Os vetores de entrada permanecem inalterados. Cada variavel tem seus
-% valores NaN removidos internamente antes dos calculos.
 
     if nargin ~= 3
         error('Use: estatistica_descritiva(t, T, U).');
