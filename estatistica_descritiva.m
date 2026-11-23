@@ -100,7 +100,7 @@ function gerar_histograma(dados, stats, titulo_grafico, rotulo_x, arquivo, cor)
     title(['Distribuicao da ' titulo_grafico]);
     xlabel(rotulo_x);
     ylabel('Frequencia');
-    legend('Observacoes validas', 'Media', 'Mediana', 'Location', 'best');
+    legend('Observacoes validas', 'Media', 'Mediana', 'Location', 'southwest');
     grid on;
 
     print(fig, arquivo, '-dpng', '-r300');
