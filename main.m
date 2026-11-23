@@ -90,7 +90,7 @@ err_U = mean(abs(res_U(valid_U)) ./ abs(U(valid_U))) * 100;
 tv = t(valid_T); rv = res_T(valid_T);
 tend_T_decada = (sum((tv - mean(tv)) .* (rv - mean(rv))) / sum((tv - mean(tv)).^2)) * 120;
 
-fprintf('=== RESULTADOS MMQ PERIODICO (FELIPE) ===\n');
+fprintf('==== RESULTADOS MMQ PERIODICO (FELIPE) ====\n');
 fprintf('T(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f C | R2=%.4f | Syx=%.2f C | Err=%.2f%%\n', ...
     coef_T(1), coef_T(2), coef_T(3), amp_T, R2_T, Syx_T, err_T);
 fprintf('U(t) = %.4f + (%.4f)cos(wt) + (%.4f)sin(wt) | Amp=%.2f %% | R2=%.4f | Syx=%.2f %% | Err=%.2f%%\n', ...
