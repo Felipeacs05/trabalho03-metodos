@@ -35,42 +35,8 @@ else
 end
 
 %% 3. RECONSTRUCAO / INTERPOLACAO (LUCAS -> interp_newton.m, interp_lagrange.m)
-T_reconst = T;
-U_reconst = U;
-
-if exist('interp_newton', 'file') == 2 && exist('interp_lagrange', 'file') == 2
-    % Preenche falhas isoladas de 1 mes usando janela local de 4 vizinhos (grau 3)
-    falhas_T = find(isnan(T(2:end-1)) & ~isnan(T(1:end-2)) & ~isnan(T(3:end))) + 1;
-    falhas_U = find(isnan(U(2:end-1)) & ~isnan(U(1:end-2)) & ~isnan(U(3:end))) + 1;
-    
-    validos_T = find(valid_T);
-    for idx = falhas_T'
-        [~, ord] = sort(abs(validos_T - idx));
-        viz = sort(validos_T(ord(1:4)));
-        T_reconst(idx) = interp_newton(t(viz), T(viz), t(idx));
-    end
-    
-    validos_U = find(valid_U);
-    for idx = falhas_U'
-        [~, ord] = sort(abs(validos_U - idx));
-        viz = sort(validos_U(ord(1:4)));
-        U_reconst(idx) = interp_newton(t(viz), U(viz), t(idx));
-    end
-    
-    % Validacao pontual: remove 1 ponto conhecido e compara erro relativo (grau 3)
-    idx_ok = find(movsum(valid_T, 5) == 5, 1, 'first');
-    if ~isempty(idx_ok)
-        viz = [idx_ok-2, idx_ok-1, idx_ok+1, idx_ok+2];
-        p_new = interp_newton(t(viz), T(viz), t(idx_ok));
-        p_lag = interp_lagrange(t(viz), T(viz), t(idx_ok));
-        fprintf('[Lucas] Validacao T(%s): Real=%.3f | Newton=%.3f (%.2f%%) | Lagrange=%.3f (%.2f%%)\n\n', ...
-            datestr(datas(idx_ok), 'yyyy-mm'), T(idx_ok), ...
-            p_new, abs(T(idx_ok)-p_new)/T(idx_ok)*100, ...
-            p_lag, abs(T(idx_ok)-p_lag)/T(idx_ok)*100);
-    end
-else
-    fprintf('[Aguardando Lucas] interp_newton.m / interp_lagrange.m ainda nao estao na pasta.\n\n');
-end
+% Reconstrucao: falhas locais, validacao T/U e estudo de grau alto.
+[T_reconst, U_reconst, resultados_interp] = reconstrucao_series(t, T, U, datas);
 
 %% 4. MODELAGEM DE CICLOS - MMQ PERIODICO (FELIPE -> mmq_periodico.m)
 P = 12; % Ciclo anual (12 meses)
