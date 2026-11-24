@@ -1,30 +1,27 @@
-function yq = interp_newton(x, y, xq)
-%INTERP_NEWTON Avalia o polinomio interpolador de Newton.
-%   yq = interp_newton(x, y, xq) recebe os nos x, os valores y e o
-%   ponto xq. A funcao usa diferencas divididas e aceita xq escalar ou
-%   vetor. Os nos devem ser finitos, distintos e ter o mesmo tamanho de y.
-
-    x = x(:);
-    y = y(:);
-
-    if numel(x) ~= numel(y) || numel(x) < 2
-        error('interp_newton:EntradaInvalida', ...
-              'x e y devem ter o mesmo numero de elementos (ao menos 2).');
+function y_interp = interp_newton(x_conhecidos, y_conhecidos, x_alvo)
+% INTERP_NEWTON Interpolacao por diferencas divididas, sem funcoes prontas.
+% Aceita nos em qualquer ordem e preserva o formato de x_alvo.
+% N nos distintos definem um polinomio de grau no maximo N-1.
+validar_interpolacao(x_conhecidos, y_conhecidos, x_alvo);
+x = double(x_conhecidos(:));
+a = double(y_conhecidos(:));
+n = numel(x);
+% Centrar e escalar reduz efeitos de unidades e datas grandes; nao elimina
+% as oscilacoes intrinsecas de um polinomio global de grau elevado.
+centro = x(1);
+escala = max(abs(x - centro));
+if escala == 0, escala = 1; end
+x = (x - centro) / escala;
+z = (double(x_alvo) - centro) / escala;
+% Atualizacao de tras para frente preserva a coluna anterior da tabela.
+for ordem = 1:n-1
+    for i = n:-1:ordem+1
+        a(i) = (a(i) - a(i-1)) / (x(i) - x(i-ordem));
     end
-    if any(~isfinite(x)) || any(~isfinite(y)) || numel(unique(x)) ~= numel(x)
-        error('interp_newton:NosInvalidos', ...
-              'Os nos x e valores y devem ser finitos; os nos devem ser distintos.');
-    end
-
-    n = numel(x);
-    coef = y;
-    for ordem = 2:n
-        coef(ordem:n) = (coef(ordem:n) - coef(ordem-1:n-1)) ./ ...
-                         (x(ordem:n) - x(1:n-ordem+1));
-    end
-
-    yq = coef(n) * ones(size(xq));
-    for k = n-1:-1:1
-        yq = coef(k) + (xq - x(k)) .* yq;
-    end
+end
+% Avaliacao aninhada da forma de Newton (Horner generalizado).
+y_interp = a(n) * ones(size(z));
+for i = n-1:-1:1
+    y_interp = a(i) + (z - x(i)) .* y_interp;
+end
 end
